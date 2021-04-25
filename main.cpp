@@ -256,7 +256,16 @@ GrammarType FindGrammarType(Grammar gram) {
 
 void AddTerminals(Grammar& newGram, Grammar& otherGram) {
 	for (std::vector<std::string>::iterator itO = otherGram.terminals.begin(); itO != otherGram.terminals.end(); itO++) {
-		newGram.terminals.push_back(*itO); // we just add all of them without worry
+		bool alreadyFound = false;
+		for (std::vector<std::string>::iterator itN = newGram.terminals.begin(); itN != newGram.terminals.end() && !alreadyFound; itN++) {
+			if (*itN == *itO) {
+				alreadyFound = true;
+			}
+		}
+
+		if (!alreadyFound) {
+			newGram.terminals.push_back(*itO); // we just add all of them without worry
+		}
 	}
 }
 
@@ -904,6 +913,57 @@ bool RunMenu()
 }
 
 int main() {
+	gram1.nonTerminals.push_back("A");
+	gram1.nonTerminals.push_back("B");
+	gram1.nonTerminals.push_back("C");
+	gram1.nonTerminals.push_back("D");
+	gram1.nonTerminals.push_back("E");
+	gram1.nonTerminals.push_back("F");
+	gram1.nonTerminals.push_back("S");
+	gram1.terminals.push_back("a");
+	gram1.terminals.push_back("b");
+	gram1.terminals.push_back("c");
+	gram1.terminals.push_back("d");
+	gram1.terminals.push_back("0");
+	gram1.terminals.push_back("1");
+	gram1.terminals.push_back("5");
+	gram1.startingPoint = "S";
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("S", "aA"));
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("S", "bB"));
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("S", "cC"));
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("S", "dD"));
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("A", "1"));
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("B", "5"));
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("C", "5E"));
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("C", "1F"));
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("D", "10"));
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("E", "1"));
+	gram1.productionRules.push_back(std::pair<std::string, std::string>("F", "5"));
+
+	gram2.nonTerminals.push_back("X");
+	gram2.nonTerminals.push_back("Y");
+	gram2.nonTerminals.push_back("Z");
+	gram2.nonTerminals.push_back("W");
+	gram2.nonTerminals.push_back("R");
+	gram2.nonTerminals.push_back("S");
+	gram2.terminals.push_back("x");
+	gram2.terminals.push_back("y");
+	gram2.terminals.push_back("w");
+	gram2.terminals.push_back("z");
+	gram2.terminals.push_back("0");
+	gram2.terminals.push_back("1");
+	gram2.terminals.push_back("5");
+	gram2.startingPoint = "S";
+	gram2.productionRules.push_back(std::pair<std::string, std::string>("S", "xX"));
+	gram2.productionRules.push_back(std::pair<std::string, std::string>("S", "yY"));
+	gram2.productionRules.push_back(std::pair<std::string, std::string>("S", "zZ"));
+	gram2.productionRules.push_back(std::pair<std::string, std::string>("S", "wW"));
+	gram2.productionRules.push_back(std::pair<std::string, std::string>("Y", "1R"));
+	gram2.productionRules.push_back(std::pair<std::string, std::string>("R", "1"));
+	gram2.productionRules.push_back(std::pair<std::string, std::string>("X", "1"));
+	gram2.productionRules.push_back(std::pair<std::string, std::string>("Z", "5"));
+	gram2.productionRules.push_back(std::pair<std::string, std::string>("W", "10"));
+
 	while (RunMenu());
 	return 0;
 }
