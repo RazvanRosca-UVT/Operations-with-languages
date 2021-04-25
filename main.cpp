@@ -904,22 +904,6 @@ bool RunMenu()
 }
 
 int main() {
-	gram1.nonTerminals.push_back("A");
-	gram1.terminals.push_back("a");
-	gram1.terminals.push_back("|");
-	gram1.startingPoint = "A";
-	gram1.productionRules.push_back(std::pair<std::string, std::string>("A", "aaA"));
-	gram1.productionRules.push_back(std::pair<std::string, std::string>("A", "aa"));
-	gram1.productionRules.push_back(std::pair<std::string, std::string>("A", "|"));
-
-	gram2.nonTerminals.push_back("S");
-	gram2.terminals.push_back("b");
-	gram2.terminals.push_back("|");
-	gram2.startingPoint = "S";
-	gram2.productionRules.push_back(std::pair<std::string, std::string>("S", "bbS"));
-	gram2.productionRules.push_back(std::pair<std::string, std::string>("S", "bb"));
-	gram2.productionRules.push_back(std::pair<std::string, std::string>("S", "|"));
-
 	while (RunMenu());
 	return 0;
 }
